@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import type { GameSession, TradePreview } from '../types';
+import type { GameSession, TradePreview, Transaction } from '../types';
 import { gameService, formatCurrency, formatShares, formatPercent } from '../services/gameService';
 import './TradingPanel.css';
 
 interface TradingPanelProps {
   game: GameSession;
-  onTrade: (updatedGame: GameSession) => void;
+  onTrade: (updatedGame: GameSession, transaction: Transaction) => void;
 }
 
 export default function TradingPanel({ game, onTrade }: TradingPanelProps) {
@@ -78,7 +78,7 @@ export default function TradingPanel({ game, onTrade }: TradingPanelProps) {
       return;
     }
 
-    onTrade(result.game);
+    onTrade(result.game, result.transaction);
     
     // Reset form
     setSharesInput('');

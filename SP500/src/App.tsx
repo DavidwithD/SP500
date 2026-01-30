@@ -1,42 +1,51 @@
 import { useState, useEffect } from 'react';
-import type { GameSession } from './types';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import type { GameSession, Transaction } from './types';
 import { dataService } from './services/dataService';
 import { gameService } from './services/gameService';
-import PortfolioDisplay from './components/PortfolioDisplay';
-import TradingPanel from './components/TradingPanel';
-import DateControl from './components/DateControl';
-import PriceChart from './components/PriceChart';
+import GamesPage from './pages/GamesPage';
+import GamePage from './pages/GamePage';
 import './App.css';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [game, setGame] = useState<GameSession | null>(null);
+  const [games, setGames] = useState<GameSession[]>([]);
+  const [currentGameId, setCurrentGameId] = useState<string | null>(null);
+  const [transactionsMap, setTransactionsMap] = useState<Map<string, Transaction[]>>(new Map());
 
-  // Initialize data and create default game
+  // Initialize data
   useEffect(() => {
     async function initialize() {
       try {
         setIsLoading(true);
-        
-        // Load S&P 500 data
         await dataService.loadData();
         
-        // Get earliest available date
-        const startDate = dataService.getEarliestDate();
-        if (!startDate) {
-          throw new Error('No price data available');
+        // Load saved games from localStorage
+        const savedGames = localStorage.getItem('sp500_games');
+        const savedTransactions = localStorage.getItem('sp500_transactions');
+        
+        if (savedGames) {
+          const parsedGames = JSON.parse(savedGames, (key, value) => {
+            // Convert date strings back to Date objects
+            if (key === 'startDate' || key === 'currentDate' || key === 'createdAt' || key === 'updatedAt' || key === 'endedAt') {
+              return value ? new Date(value) : value;
+            }
+            return value;
+          });
+          setGames(parsedGames);
         }
 
-        // Create a new game session
-        const newGame = gameService.createGame(
-          'user-1',
-          'My Trading Game',
-          startDate,
-          10000
-        );
+        if (savedTransactions) {
+          const parsedTransactions = JSON.parse(savedTransactions, (key, value) => {
+            if (key === 'date' || key === 'timestamp') {
+              return new Date(value);
+            }
+            return value;
+          });
+          setTransactionsMap(new Map(Object.entries(parsedTransactions)));
+        }
 
-        setGame(newGame);
         setIsLoading(false);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to initialize');
@@ -47,19 +56,63 @@ function App() {
     initialize();
   }, []);
 
-  const handleTrade = (updatedGame: GameSession) => {
-    setGame(updatedGame);
+  // Save games to localStorage whenever they change
+  useEffect(() => {
+    if (!isLoading && games.length > 0) {
+      localStorage.setItem('sp500_games', JSON.stringify(games));
+    }
+  }, [games, isLoading]);
+
+  // Save transactions to localStorage
+  useEffect(() => {
+    if (!isLoading && transactionsMap.size > 0) {
+      const transactionsObj = Object.fromEntries(transactionsMap);
+      localStorage.setItem('sp500_transactions', JSON.stringify(transactionsObj));
+    }
+  }, [transactionsMap, isLoading]);
+
+  const handleCreateGame = (gameName: string, startDate: Date, startingCash: number) => {
+    const newGame = gameService.createGame('user-1', gameName, startDate, startingCash);
+    setGames(prev => [...prev, newGame]);
+    setTransactionsMap(prev => new Map(prev).set(newGame.gameId, []));
   };
 
-  const handleAdvanceDate = (increment: 'day' | 'week' | 'month' | 'year') => {
-    if (!game) return;
+  const handleSelectGame = (gameId: string) => {
+    setCurrentGameId(gameId);
+  };
 
-    const result = gameService.advanceDate(game, increment);
-    if ('error' in result) {
-      alert(result.error);
-    } else {
-      setGame(result);
+  const handleDeleteGame = (gameId: string) => {
+    setGames(prev => prev.filter(g => g.gameId !== gameId));
+    setTransactionsMap(prev => {
+      const newMap = new Map(prev);
+      newMap.delete(gameId);
+      return newMap;
+    });
+    if (currentGameId === gameId) {
+      setCurrentGameId(null);
     }
+  };
+
+  const handleTrade = (updatedGame: GameSession, transaction: Transaction) => {
+    setGames(prev => prev.map(g => g.gameId === updatedGame.gameId ? updatedGame : g));
+    setTransactionsMap(prev => {
+      const newMap = new Map(prev);
+      const existing = newMap.get(updatedGame.gameId) || [];
+      newMap.set(updatedGame.gameId, [...existing, transaction]);
+      return newMap;
+    });
+  };
+
+  const handleAdvanceDate = (updatedGame: GameSession) => {
+    setGames(prev => prev.map(g => g.gameId === updatedGame.gameId ? updatedGame : g));
+  };
+
+  const handlePauseGame = (updatedGame: GameSession) => {
+    setGames(prev => prev.map(g => g.gameId === updatedGame.gameId ? updatedGame : g));
+  };
+
+  const handleEndGame = (updatedGame: GameSession) => {
+    setGames(prev => prev.map(g => g.gameId === updatedGame.gameId ? updatedGame : g));
   };
 
   if (isLoading) {
@@ -82,60 +135,38 @@ function App() {
     );
   }
 
-  if (!game) {
-    return (
-      <div className="app-error">
-        <h2>No game session</h2>
-        <button onClick={() => window.location.reload()}>Start New Game</button>
-      </div>
-    );
-  }
-
-  const computed = gameService.computeGameStats(game);
+  const currentGame = currentGameId ? games.find(g => g.gameId === currentGameId) || null : null;
+  const currentTransactions = currentGameId ? transactionsMap.get(currentGameId) || [] : [];
 
   return (
-    <div className="app">
-      <header className="app-header">
-        <div className="header-content">
-          <h1>📈 SP500 Trading Simulator</h1>
-          <p className="tagline">Practice trading with historical data • No real money</p>
-        </div>
-        <div className="game-info">
-          <span className="game-name">{game.gameName}</span>
-          <span className={`game-status ${game.status}`}>{game.status}</span>
-        </div>
-      </header>
-
-      <main className="app-main">
-        <div className="main-grid">
-          {/* Left Column - Trading & Date Control */}
-          <div className="left-column">
-            <DateControl 
-              game={game} 
-              computed={computed}
-              onAdvanceDate={handleAdvanceDate}
+    <Router>
+      <Routes>
+        <Route 
+          path="/" 
+          element={
+            <GamesPage 
+              games={games}
+              onCreateGame={handleCreateGame}
+              onSelectGame={handleSelectGame}
+              onDeleteGame={handleDeleteGame}
             />
-            <TradingPanel 
-              game={game}
+          } 
+        />
+        <Route 
+          path="/game" 
+          element={
+            <GamePage 
+              game={currentGame}
+              transactions={currentTransactions}
               onTrade={handleTrade}
+              onAdvanceDate={handleAdvanceDate}
+              onPauseGame={handlePauseGame}
+              onEndGame={handleEndGame}
             />
-          </div>
-
-          {/* Right Column - Portfolio & Chart */}
-          <div className="right-column">
-            <PortfolioDisplay 
-              game={game}
-              computed={computed}
-            />
-            <PriceChart game={game} />
-          </div>
-        </div>
-      </main>
-
-      <footer className="app-footer">
-        <p>Educational purpose only • Using historical S&P 500 data • {dataService.getDataPointCount()} data points loaded</p>
-      </footer>
-    </div>
+          } 
+        />
+      </Routes>
+    </Router>
   );
 }
 

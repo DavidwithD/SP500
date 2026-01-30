@@ -1,0 +1,257 @@
+.transaction-history {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.history-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.transaction-count {
+  background: #667eea;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  color: #6c757d;
+}
+
+.empty-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.empty-state h3 {
+  margin: 0 0 8px 0;
+  font-size: 20px;
+  color: #4a5568;
+}
+
+.empty-state p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.empty-state .tip {
+  margin-top: 16px;
+  padding: 12px 20px;
+  background: #fff9e6;
+  border-radius: 8px;
+  border: 1px solid #ffd666;
+  color: #8b6914;
+  display: inline-block;
+}
+
+/* Transactions List */
+.transactions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.transactions-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.transactions-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.transactions-list::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 4px;
+}
+
+.transactions-list::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
+
+/* Transaction Item */
+.transaction-item {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 16px;
+  border-left: 4px solid #e9ecef;
+  transition: all 0.2s;
+}
+
+.transaction-item:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.transaction-item.buy {
+  border-left-color: #10b981;
+  background: linear-gradient(to right, #ecfdf5 0%, #f8f9fa 20%);
+}
+
+.transaction-item.sell {
+  border-left-color: #ef4444;
+  background: linear-gradient(to right, #fef2f2 0%, #f8f9fa 20%);
+}
+
+.transaction-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.transaction-type-badge {
+  font-size: 14px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+.transaction-item.buy .transaction-type-badge {
+  background: #10b981;
+  color: white;
+}
+
+.transaction-item.sell .transaction-type-badge {
+  background: #ef4444;
+  color: white;
+}
+
+.transaction-date {
+  text-align: right;
+}
+
+.sim-date {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.timestamp {
+  font-size: 12px;
+  color: #6c757d;
+}
+
+/* Transaction Details */
+.transaction-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.detail-label {
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.detail-value {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.detail-row.total {
+  padding-top: 8px;
+  border-top: 1px dashed #dee2e6;
+  font-size: 15px;
+}
+
+.detail-row.total .detail-label {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.detail-row.total .detail-value {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* Profit/Loss Section */
+.profit-loss-section {
+  background: white;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.profit-loss {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.profit-loss.profit {
+  color: #10b981;
+}
+
+.profit-loss.loss {
+  color: #ef4444;
+}
+
+.profit-loss .percent {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.cost-basis {
+  font-size: 12px;
+  color: #6c757d;
+}
+
+/* Balance Changes */
+.balance-changes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.balance-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.balance-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #6c757d;
+  font-weight: 600;
+}
+
+.balance-change {
+  font-size: 12px;
+  color: #4a5568;
+  font-family: 'Courier New', monospace;
+}
