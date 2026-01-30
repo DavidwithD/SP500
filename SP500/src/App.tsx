@@ -5,6 +5,7 @@ import { dataService } from './services/dataService';
 import { gameService } from './services/gameService';
 import GamesPage from './pages/GamesPage';
 import GamePage from './pages/GamePage';
+import { PriceDataDemo } from './components/demo/PriceDataDemo';
 import './App.css';
 
 function App() {
@@ -164,6 +165,10 @@ function App() {
               onEndGame={handleEndGame}
             />
           } 
+        />
+        <Route 
+          path="/demo" 
+          element={<PriceDataDemo />} 
         />
       </Routes>
     </Router>

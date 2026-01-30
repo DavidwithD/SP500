@@ -1,0 +1,309 @@
+.price-data-demo {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #1f2937;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.actions button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.actions button:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+/* Loading State */
+.loading {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #e5e7eb;
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error State */
+.error {
+  text-align: center;
+  padding: 2rem;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+}
+
+.error h2 {
+  color: #dc2626;
+  margin: 0 0 1rem;
+}
+
+.error p {
+  color: #991b1b;
+  margin: 0 0 1rem;
+}
+
+.error button {
+  padding: 0.5rem 1.5rem;
+  background: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.error button:hover {
+  background: #b91c1c;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card h3 {
+  margin: 0 0 1rem;
+  font-size: 1.125rem;
+  color: #1f2937;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.stat-row:last-child {
+  border-bottom: none;
+}
+
+.stat-row span {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.stat-row strong {
+  color: #1f2937;
+  font-size: 1rem;
+}
+
+/* Price Display */
+.price-display {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.price-main {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #1f2937;
+}
+
+.price-date {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+.price-change {
+  text-align: center;
+  font-size: 1.125rem;
+  font-weight: 600;
+  padding: 0.5rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+}
+
+.price-change.positive {
+  color: #059669;
+  background: #d1fae5;
+}
+
+.price-change.negative {
+  color: #dc2626;
+  background: #fee2e2;
+}
+
+/* 52-Week Range */
+.range-bar {
+  position: relative;
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  margin: 1rem 0 0.5rem;
+}
+
+.range-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: linear-gradient(to right, #dc2626, #fbbf24, #059669);
+  border-radius: 4px;
+  transition: width 0.3s;
+}
+
+.range-marker {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  color: #1f2937;
+}
+
+.range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+/* Trend Display */
+.trend-display {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.trend-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.trend-badge.trend-bullish {
+  background: #d1fae5;
+  color: #059669;
+}
+
+.trend-badge.trend-bearish {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.trend-badge.trend-neutral {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.trend-description {
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin: 0.5rem 0 0;
+}
+
+/* Info Box */
+.info-box {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.info-box h3 {
+  margin: 0 0 0.5rem;
+  color: #1e40af;
+}
+
+.info-box p {
+  color: #1e3a8a;
+  line-height: 1.6;
+  margin: 0 0 1rem;
+}
+
+.info-box ul {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: #1e3a8a;
+}
+
+.info-box li {
+  margin: 0.25rem 0;
+}
+
+/* Positive/Negative Colors */
+.positive {
+  color: #059669;
+}
+
+.negative {
+  color: #dc2626;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .price-data-demo {
+    padding: 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .price-main {
+    font-size: 2rem;
+  }
+}
