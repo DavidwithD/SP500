@@ -5,6 +5,10 @@ import { dataService } from './services/dataService';
 import { gameService } from './services/gameService';
 import GamesPage from './pages/GamesPage';
 import GamePage from './pages/GamePage';
+import SettingsPage from './pages/SettingsPage';
+import LeaderboardPage from './pages/LeaderboardPage';
+import AchievementsPage from './pages/AchievementsPage';
+import NotFoundPage from './pages/NotFoundPage';
 import { PriceDataDemo } from './components/demo/PriceDataDemo';
 import './App.css';
 
@@ -166,10 +170,11 @@ function App() {
             />
           } 
         />
-        <Route 
-          path="/demo" 
-          element={<PriceDataDemo />} 
-        />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/leaderboard" element={<LeaderboardPage />} />
+        <Route path="/achievements" element={<AchievementsPage />} />
+        <Route path="/demo" element={<PriceDataDemo />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   );

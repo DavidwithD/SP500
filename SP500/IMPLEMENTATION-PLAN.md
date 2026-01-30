@@ -659,53 +659,54 @@ src/constants/storageKeys.ts
 - ✓ Easy to switch between games
 - ✓ Game history preserved
 
-#### 6.3 Settings Page
+#### 6.3 Settings Page ✅
 
-**Priority:** MEDIUM | **Effort:** Low | **Dependencies:** User Service
+**Priority:** MEDIUM | **Effort:** Low | **Dependencies:** User Service | **Status:** COMPLETE
 
 **Tasks:**
 
-- [ ] Create `src/pages/Settings/Settings.tsx`
+- [x] Create `src/pages/Settings/SettingsPage.tsx`
   - Default initial capital setting
-  - Theme preference (light/dark)
+  - Theme preference (light/dark/system)
   - Educational mode toggle
-  - Chart preferences
+  - Chart preferences (tooltips)
+  - Confirm trades toggle
   - Clear cache/reset app option
-- [ ] Save settings to localStorage
-- [ ] Apply settings globally
+- [x] Save settings to localStorage
+- [x] Apply settings globally
 - [ ] Write tests
 
 **Reference:** See [REQUIREMENTS.md](docs/REQUIREMENTS.md) "Settings Page"
 
 **Acceptance Criteria:**
 
-- ✓ Settings persist across sessions
-- ✓ Changes apply immediately
-- ✓ Clear defaults
+- ✅ Settings persist across sessions
+- ✅ Changes apply immediately
+- ✅ Clear defaults
 
-#### 6.4 Routing Setup
+#### 6.4 Routing Setup ✅
 
-**Priority:** HIGH | **Effort:** Low | **Dependencies:** All pages
+**Priority:** HIGH | **Effort:** Low | **Dependencies:** All pages | **Status:** COMPLETE
 
 **Tasks:**
 
-- [ ] Configure React Router in `src/main.tsx`
-- [ ] Define routes:
-  - `/` - Dashboard (default)
-  - `/games` - Game selector
-  - `/history` - Game history
+- [x] Configure React Router in `src/App.tsx`
+- [x] Define routes:
+  - `/` - Games page (game selector)
+  - `/game` - Active game view
   - `/settings` - Settings
-  - `/leaderboard` - Leaderboard (Phase 7)
-  - `/achievements` - Achievements (Phase 7)
-- [ ] Add navigation between routes
-- [ ] 404 Not Found page
+  - `/leaderboard` - Leaderboard
+  - `/achievements` - Achievements
+  - `/demo` - Price data demo
+- [x] Add navigation between routes
+- [x] 404 Not Found page
 - [ ] Protected routes (require game selected)
 
 **Acceptance Criteria:**
 
-- ✓ All routes work correctly
-- ✓ Browser back/forward work
-- ✓ URL updates on navigation
+- ✅ All routes work correctly
+- ✅ Browser back/forward work
+- ✅ URL updates on navigation
 
 ---
 
@@ -1020,8 +1021,8 @@ Phase 2: Core Business Logic        [ COMPLETE    ] ✅
 Phase 3: UI Components - Common     [ COMPLETE    ] ✅
 Phase 4: Feature Components         [ COMPLETE    ] ✅
 Phase 5: Charts & Visualization     [ COMPLETE    ] ✅
-Phase 6: Pages & Routing           [ IN PROGRESS ] 🔄
-Phase 7: Advanced Features         [ NOT STARTED ]
+Phase 6: Pages & Routing           [ COMPLETE    ] ✅
+Phase 7: Advanced Features         [ IN PROGRESS ] 🔄
 Phase 8: Polish & Testing          [ NOT STARTED ]
 ```
 
@@ -1064,10 +1065,16 @@ Phase 8: Polish & Testing          [ NOT STARTED ]
 
 - ✅ PriceChart component with visualization
 
-**Phase 6 - Pages (Partial):**
+**Phase 6 - Pages & Routing:**
 
 - ✅ GamePage (GamePage.tsx + CSS)
 - ✅ GamesPage (GamesPage.tsx + CSS)
+- ✅ SettingsPage (SettingsPage.tsx + CSS)
+- ✅ LeaderboardPage (LeaderboardPage.tsx + CSS) - placeholder with UI
+- ✅ AchievementsPage (AchievementsPage.tsx + CSS) - placeholder with UI
+- ✅ NotFoundPage (NotFoundPage.tsx + CSS) - 404 page
+- ✅ Pages barrel export (pages/index.ts)
+- ✅ Full routing in App.tsx
 
 **Hooks:**
 
@@ -1075,19 +1082,13 @@ Phase 8: Polish & Testing          [ NOT STARTED ]
 
 ### In Progress / Remaining
 
-**Phase 6 - Pages (Remaining):**
-
-- [ ] Settings page
-- [ ] Leaderboard page (placeholder)
-- [ ] Achievements page (placeholder)
-- [ ] 404 Not Found page
-- [ ] Integrate Layout components into App.tsx
-
 **Phase 7 - Advanced Features:**
 
-- [ ] Achievement system
-- [ ] Leaderboard
-- [ ] Educational mode
+- [ ] Achievement service (checkAchievements, unlockAchievement logic)
+- [ ] Achievement notifications (toast on unlock)
+- [ ] Leaderboard service (submitScore, getLeaderboard logic)
+- [ ] Educational mode tooltips
+- [ ] Integrate achievements into game flow
 
 **Phase 8 - Polish & Testing:**
 
@@ -1099,11 +1100,11 @@ Phase 8: Polish & Testing          [ NOT STARTED ]
 
 ### Next Steps
 
-1. **Immediate:** Complete Phase 6 - Create Settings, Leaderboard, Achievements, and 404 pages
-2. Integrate new Layout components into App.tsx
-3. Update routing with new pages
-4. Begin Phase 7 - Implement Achievement system logic
-5. Add Leaderboard functionality
+1. **Immediate:** Begin Phase 7 - Implement Achievement system service logic
+2. Add achievement tracking and unlock notifications
+3. Implement Leaderboard service functionality
+4. Add Educational mode tooltips
+5. Begin Phase 8 - Testing and polish
 
 ---
 

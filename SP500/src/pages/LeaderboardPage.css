@@ -1,0 +1,251 @@
+.leaderboard-page {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.leaderboard-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.leaderboard-header h1 {
+  margin: 0 0 8px 0;
+  font-size: 32px;
+  color: #1f2937;
+}
+
+.leaderboard-subtitle {
+  margin: 0;
+  color: #6b7280;
+  font-size: 16px;
+}
+
+/* Filters */
+.leaderboard-filters {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.filter-btn {
+  padding: 10px 20px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #4b5563;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.filter-btn:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: transparent;
+}
+
+/* Notice */
+.leaderboard-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border-bottom: 1px solid #f59e0b;
+}
+
+.notice-icon {
+  font-size: 24px;
+}
+
+.notice-content strong {
+  display: block;
+  color: #92400e;
+  margin-bottom: 4px;
+}
+
+.notice-content p {
+  margin: 0;
+  font-size: 13px;
+  color: #a16207;
+}
+
+/* Table */
+.leaderboard-card {
+  overflow: hidden;
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.leaderboard-table th {
+  background: #f9fafb;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #6b7280;
+}
+
+.leaderboard-table tbody tr:hover {
+  background: #fafafa;
+}
+
+.leaderboard-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Top 3 styling */
+.top-1 {
+  background: linear-gradient(90deg, rgba(255, 215, 0, 0.1) 0%, transparent 100%);
+}
+
+.top-2 {
+  background: linear-gradient(90deg, rgba(192, 192, 192, 0.1) 0%, transparent 100%);
+}
+
+.top-3 {
+  background: linear-gradient(90deg, rgba(205, 127, 50, 0.1) 0%, transparent 100%);
+}
+
+/* Columns */
+.col-rank {
+  width: 80px;
+  text-align: center;
+}
+
+.rank-medal {
+  font-size: 24px;
+}
+
+.rank-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: #f3f4f6;
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.col-user {
+  min-width: 150px;
+}
+
+.username {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.col-game {
+  min-width: 180px;
+}
+
+.game-name {
+  display: block;
+  font-weight: 500;
+  color: #374151;
+}
+
+.game-date {
+  display: block;
+  font-size: 12px;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+.col-roi,
+.col-profit {
+  text-align: right;
+  font-family: 'SF Mono', Consolas, monospace;
+}
+
+.roi-value,
+.profit-value {
+  font-weight: 600;
+}
+
+.roi-value.positive,
+.profit-value.positive {
+  color: #10b981;
+}
+
+.roi-value.negative,
+.profit-value.negative {
+  color: #ef4444;
+}
+
+.col-trades {
+  text-align: center;
+  color: #6b7280;
+}
+
+/* CTA */
+.leaderboard-cta {
+  text-align: center;
+  padding: 32px 0;
+}
+
+.leaderboard-cta p {
+  margin: 0 0 16px 0;
+  color: #6b7280;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .leaderboard-table th,
+  .leaderboard-table td {
+    padding: 12px 8px;
+  }
+
+  .col-game,
+  .col-trades {
+    display: none;
+  }
+
+  .leaderboard-filters {
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    flex: 1;
+    min-width: 100px;
+  }
+}
