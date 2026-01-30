@@ -1,0 +1,89 @@
+.card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Variants */
+.card-default {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card-outlined {
+  border: 1px solid #e5e7eb;
+  box-shadow: none;
+}
+
+.card-elevated {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Padding */
+.card-padding-none .card-body {
+  padding: 0;
+}
+
+.card-padding-small .card-body {
+  padding: 12px;
+}
+
+.card-padding-medium .card-body {
+  padding: 20px;
+}
+
+.card-padding-large .card-body {
+  padding: 28px;
+}
+
+/* Header */
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.card-header-text {
+  flex: 1;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.card-subtitle {
+  margin: 4px 0 0 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.card-header-action {
+  margin-left: 16px;
+}
+
+/* Footer */
+.card-footer {
+  padding: 12px 20px;
+  border-top: 1px solid #f3f4f6;
+  background: #fafafa;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .card-padding-medium .card-body,
+  .card-padding-large .card-body {
+    padding: 16px;
+  }
+
+  .card-header {
+    padding: 12px 16px;
+  }
+
+  .card-footer {
+    padding: 12px 16px;
+  }
+}
