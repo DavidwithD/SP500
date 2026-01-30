@@ -6,8 +6,8 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
-import type { PriceData, DateRange, WeekRange52, DataLoadResult } from '../types';
-import { DataLoadStatus, MarketTrend } from '../types';
+import type { PriceData, DateRange, WeekRange52, DataLoadResult } from '../types/priceData.types';
+import { DataLoadStatus, MarketTrend } from '../types/priceData.types';
 import {
   loadPriceData,
   getPriceForDate,

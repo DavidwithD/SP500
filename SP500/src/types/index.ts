@@ -4,10 +4,10 @@
  * Central export point for all TypeScript type definitions.
  */
 
-// Price Data Types
+// Price Data Types - explicitly import from priceData.types to avoid conflicts with root types.ts
 export type {
   RawPriceDataEntry,
-  PriceData,
+  PriceData as PriceDataNew,
   DateRange,
   WeekRange52,
   CachedPriceData,

@@ -74,11 +74,13 @@ export interface WeekRange52 {
 /**
  * Market trend indicator
  */
-export enum MarketTrend {
-  BULLISH = 'bullish',
-  BEARISH = 'bearish',
-  NEUTRAL = 'neutral',
-}
+export const MarketTrend = {
+  BULLISH: 'bullish',
+  BEARISH: 'bearish',
+  NEUTRAL: 'neutral',
+} as const;
+
+export type MarketTrend = typeof MarketTrend[keyof typeof MarketTrend];
 
 /**
  * Cached price data structure for localStorage
@@ -109,12 +111,14 @@ export interface PriceDataQuery {
 /**
  * Data loading status
  */
-export enum DataLoadStatus {
-  IDLE = 'idle',
-  LOADING = 'loading',
-  SUCCESS = 'success',
-  ERROR = 'error',
-}
+export const DataLoadStatus = {
+  IDLE: 'idle',
+  LOADING: 'loading',
+  SUCCESS: 'success',
+  ERROR: 'error',
+} as const;
+
+export type DataLoadStatus = typeof DataLoadStatus[keyof typeof DataLoadStatus];
 
 /**
  * Data load result

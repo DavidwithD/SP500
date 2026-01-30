@@ -9,12 +9,11 @@ import type {
   RawPriceDataEntry,
   DateRange,
   WeekRange52,
-  MarketTrend,
   CachedPriceData,
   PriceDataQuery,
   DataLoadResult,
 } from '../../types/priceData.types';
-import { DataLoadStatus } from '../../types/priceData.types';
+import { DataLoadStatus, MarketTrend } from '../../types/priceData.types';
 import { STORAGE_KEYS, STORAGE_VERSION, CACHE_EXPIRATION_TIME } from '../../constants/storageKeys';
 
 /**
@@ -447,13 +446,13 @@ export function clearCache(): void {
  */
 export function getCacheStatus(): {
   inMemory: boolean;
-  localStorage: boolean;
+  hasLocalStorage: boolean;
   entryCount: number;
 } {
   const inMemory = priceDataCache !== null;
   const localStorageData = localStorage.getItem(STORAGE_KEYS.PRICE_DATA);
-  const localStorage = localStorageData !== null;
+  const hasLocalStorage = localStorageData !== null;
   const entryCount = priceDataCache?.length || 0;
   
-  return { inMemory, localStorage, entryCount };
+  return { inMemory, hasLocalStorage, entryCount };
 }
