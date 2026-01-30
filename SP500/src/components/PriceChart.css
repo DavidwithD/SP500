@@ -1,0 +1,103 @@
+.price-chart {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+.price-chart h2 {
+  margin: 0 0 20px 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.chart-container {
+  margin: 20px 0;
+}
+
+.custom-tooltip {
+  background: white;
+  border: 2px solid #667eea;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.tooltip-date {
+  font-size: 13px;
+  font-weight: 600;
+  color: #4a5568;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.tooltip-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+.tooltip-label {
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.tooltip-value {
+  color: #1a1a1a;
+  font-weight: 700;
+}
+
+.chart-legend {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #4a5568;
+}
+
+.legend-dot {
+  width: 16px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.legend-dot.dashed {
+  background: repeating-linear-gradient(
+    to right,
+    #10b981 0px,
+    #10b981 5px,
+    transparent 5px,
+    transparent 10px
+  );
+}
+
+@media (max-width: 768px) {
+  .price-chart {
+    padding: 16px;
+  }
+
+  .chart-container {
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+
+  .chart-legend {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
