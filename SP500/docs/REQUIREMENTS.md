@@ -43,7 +43,24 @@ A web-based game that simulates fund trading, allowing users to practice buying 
 - **✅ CONFIRMED**: Users can configure this amount in a settings page
 - Settings page will allow users to customize the initial capital amount for new games
 
-### 3. Price Visualization
+#### 2.3 Simulation Date Display
+
+- **[REQUIRED]**: Prominently display the current simulation date during gameplay
+- Display format should include: Date, day of week, and days played counter
+- Users should always know what "today" is in the simulation
+- Visual indicators for time progression (progress bar through available data range)
+
+### 3. Market Context & Information
+
+#### 3.1 Current Market Status Display
+
+- Display current S&P 500 price at the simulation date
+- Show daily price change (percentage and dollar amount)
+- Display 52-week high and low prices for context
+- Show market trend indicator (bullish/bearish/neutral)
+- Display current quarter and year
+
+### 4. Price Visualization
 
 #### 3.1 Historical Chart
 
@@ -57,9 +74,9 @@ A web-based game that simulates fund trading, allowing users to practice buying 
 - This chart updates every time a purchase is made
 - Shows the cost basis across different time periods
 
-### 4. Time Control
+### 5. Time Control
 
-#### 4.1 Date Advancement
+#### 5.1 Date Advancement
 
 - Users can fast-forward the current simulation date
 - **✅ CONFIRMED**: Available increment options:
@@ -70,9 +87,27 @@ A web-based game that simulates fund trading, allowing users to practice buying 
   - Custom (user-specified increment)
 - Maximum date limit is the end of available historical data
 
-### 5. Trading Functions
+### 6. Trading Functions
 
-#### 5.1 Buy Shares
+#### 6.1 Trade Input & Confirmation
+
+- **[REQUIRED]**: Provide clear trade input interface with:
+  - Input field for number of shares OR dollar amount to invest
+  - Real-time preview of trade impact before execution
+  - Quick action buttons: "Buy Max" (all available cash), "Sell All" (all shares)
+  - Preset percentage buttons: 25%, 50%, 75%, 100% of cash/shares
+- **[REQUIRED]**: Show trade preview before confirmation:
+  - Shares to buy/sell
+  - Price per share
+  - Total cost/proceeds
+  - New cash balance
+  - New share count
+  - New average holding price (for buys)
+  - Impact on portfolio value
+- **[REQUIRED]**: Confirmation dialog for all trades
+- **[REQUIRED]**: Clear success/error feedback after trade execution
+
+#### 6.2 Buy Shares
 
 - Users can purchase fund shares using available cash
 - Purchases are executed at the current simulation date's price
@@ -80,7 +115,7 @@ A web-based game that simulates fund trading, allowing users to practice buying 
 - **✅ CONFIRMED**: Fractional shares are allowed (e.g., 0.5 shares, 1.234 shares)
 - **✅ CONFIRMED**: No transaction fees or commissions
 
-#### 5.2 Sell Shares
+#### 6.3 Sell Shares
 
 - Users can sell shares they currently hold
 - Sales are executed at the current simulation date's price
@@ -88,9 +123,9 @@ A web-based game that simulates fund trading, allowing users to practice buying 
 - **✅ CONFIRMED**: Fractional shares can be sold (e.g., sell 0.5 shares)
 - **✅ CONFIRMED**: No transaction fees or commissions
 
-### 6. Portfolio Display
+### 7. Portfolio Display
 
-#### 6.1 Current Holdings
+#### 7.1 Current Holdings
 
 - Display current cash balance
 - Display number of shares held
@@ -98,7 +133,7 @@ A web-based game that simulates fund trading, allowing users to practice buying 
 - Display total profit/loss (realized + unrealized)
 - Display current portfolio value (cash + shares value)
 
-#### 6.2 Profit Calculation
+#### 7.2 Profit Calculation
 
 - Show unrealized profit/loss based on current price vs. average holding price
 - **✅ CONFIRMED**: Track and display realized profit/loss from completed sales separately
@@ -107,9 +142,9 @@ A web-based game that simulates fund trading, allowing users to practice buying 
   - **Realized profit/loss**: From completed sell transactions
   - **Unrealized profit/loss**: From current holdings at current price
 
-### 7. Game History
+### 8. Game History
 
-#### 7.1 History Records
+#### 8.1 History Records
 
 - When a game ends, create a history record
 - **✅ CONFIRMED**: Save the following information:
@@ -122,39 +157,68 @@ A web-based game that simulates fund trading, allowing users to practice buying 
   - Complete transaction log
   - Game duration (days played)
 
+### 9. Navigation & Core UX
+
+#### 9.1 Application Navigation
+
+- **[REQUIRED]**: Users can navigate between main sections:
+  - Active game/trading view (dashboard)
+  - Portfolio overview
+  - Transaction history
+  - Game selector/switcher
+  - Leaderboard
+  - Achievements
+  - Settings
+- Navigation should be consistent and accessible from all views
+
+#### 9.2 Zero States
+
+- **[REQUIRED]**: Design for empty states:
+  - No games created yet: Welcome screen with "Create First Game" CTA
+  - No transactions: Helpful prompt to make first trade
+  - No shares held: Display cash-only portfolio
+  - Empty leaderboard: Encouraging message
+  - No achievements yet: Show locked achievements as goals
+
+#### 9.3 Comparison Features
+
+- **[ADVISOR]**: Show performance comparison vs. buy-and-hold strategy
+- **[ADVISOR]**: Compare current game performance vs. user's past games
+- **[ADVISOR]**: Display "what if" scenarios (e.g., if you held instead of selling)
+
 ---
 
 ## 💡 Additional Recommended Requirements (Advisor Suggestions)
 
-### 8. Data Management ⭐
+### 10. Data Management ⭐
 
 - **✅ CONFIRMED**: Load SP500 historical data from `backup-2026-01-30/data/sp500.csv` or `backup-2026-01-30/data/sp500.json`
 - **[ADVISOR]** Validate data integrity on app load
 - **[ADVISOR]** Handle missing data points gracefully
 - **[ADVISOR]** Copy data files from backup to new project structure
 
-### 9. Transaction History ⭐
+### 11. Transaction History ⭐
 
 - **[ADVISOR]** Maintain a transaction log for each game showing:
   - Date, action (buy/sell), shares, price, total cost/proceeds
 - **[ADVISOR]** Allow users to view transaction history during gameplay
 - **[ADVISOR]** Export transaction history as CSV/JSON
 
-### 10. Input Validation ⭐
+### 12. Input Validation ⭐
 
 - **[ADVISOR]** Validate buy amount doesn't exceed available cash
 - **[ADVISOR]** Validate sell amount doesn't exceed held shares
 - **[ADVISOR]** Prevent negative or zero transaction amounts
 - **[ADVISOR]** Show clear error messages for invalid actions
 
-### 11. User Interface Enhancements ⭐
+### 13. User Interface Enhancements ⭐
 
 - **[ADVISOR]** Show loading states during data operations
 - **[ADVISOR]** Provide confirmation dialogs for major actions (sell all, end game, restart)
 - **[ADVISOR]** Display real-time calculation preview before executing trades
 - **[ADVISOR]** Responsive design for mobile/tablet devices
 
-### 12. Game Statistics ⭐
+### 14. Game Statistics ⭐
 
 - **[ADVISOR]** Track and display:
   - Total number of trades made
@@ -164,26 +228,26 @@ A web-based game that simulates fund trading, allowing users to practice buying 
   - Total days played
   - Return on investment (ROI)
 
-### 13. Data Persistence ⭐
+### 15. Data Persistence ⭐
 
 - **[ADVISOR]** Save game state to localStorage/sessionStorage
 - **[ADVISOR]** Auto-save feature at regular intervals
 - **[ADVISOR]** Warning before closing browser with unsaved game
 
-### 14. Multiple Game Sessions ⭐
+### 16. Multiple Game Sessions ⭐
 
 - **[ADVISOR]** Maximum number of concurrent games per user
 - **[ADVISOR]** Game naming/labeling system for easy identification
 - **[ADVISOR]** Sort/filter games by date created, profit, etc.
 
-### 15. Chart Enhancements ⭐
+### 17. Chart Enhancements ⭐
 
 - **[ADVISOR]** Zoom and pan capabilities on price charts
 - **[ADVISOR]** Toggle between different chart types (line, candlestick)
 - **[ADVISOR]** Add transaction markers on the price chart
 - **[ADVISOR]** Show volume data if available
 
-### 16. Accessibility ⭐
+### 18. Accessibility ⭐
 
 - **[ADVISOR]** Keyboard navigation support
 - **[ADVISOR]** Screen reader compatibility
