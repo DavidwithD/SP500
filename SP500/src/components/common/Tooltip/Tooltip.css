@@ -1,0 +1,156 @@
+.tooltip-trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tooltip-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  cursor: help;
+  transition: all 0.2s ease;
+}
+
+.tooltip-trigger:hover .tooltip-indicator {
+  color: #ffd700;
+  background: rgba(255, 215, 0, 0.2);
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 10001;
+  padding: 8px 12px;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: #fff;
+  background: #1a1a2e;
+  border-radius: 8px;
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  max-width: 280px;
+  animation: tooltipFadeIn 0.15s ease-out;
+  pointer-events: none;
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tooltip--top {
+  transform-origin: bottom center;
+}
+
+.tooltip--bottom {
+  transform-origin: top center;
+}
+
+.tooltip--left {
+  transform-origin: right center;
+}
+
+.tooltip--right {
+  transform-origin: left center;
+}
+
+/* Educational tooltip styles */
+.tooltip--educational {
+  max-width: 320px;
+  padding: 0;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.tooltip__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #ffd700;
+  background: rgba(255, 215, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+}
+
+.tooltip__icon {
+  font-size: 1rem;
+}
+
+.tooltip__content {
+  padding: 12px 14px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.tooltip--educational .tooltip__content {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+/* Arrow indicators (optional) */
+.tooltip::before {
+  content: '';
+  position: absolute;
+  border: 6px solid transparent;
+}
+
+.tooltip--top::before {
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-top-color: #1a1a2e;
+}
+
+.tooltip--bottom::before {
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-bottom-color: #1a1a2e;
+}
+
+.tooltip--left::before {
+  right: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-left-color: #1a1a2e;
+}
+
+.tooltip--right::before {
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-right-color: #1a1a2e;
+}
+
+/* Educational tooltips with golden accent */
+.tooltip--educational.tooltip--top::before {
+  border-top-color: #16213e;
+}
+
+.tooltip--educational.tooltip--bottom::before {
+  border-bottom-color: rgba(255, 215, 0, 0.1);
+}
+
+.tooltip--educational.tooltip--left::before {
+  border-left-color: #16213e;
+}
+
+.tooltip--educational.tooltip--right::before {
+  border-right-color: #16213e;
+}

@@ -1,0 +1,237 @@
+.achievement-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  min-width: 320px;
+  max-width: 420px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 12px;
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 215, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  animation: slideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.achievement-notification.leaving {
+  animation: slideOut 0.3s ease-in forwards;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100px) scale(0.8);
+  }
+}
+
+.achievement-notification__glow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 215, 0, 0.15) 0%,
+    transparent 50%
+  );
+  animation: pulse 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.achievement-notification__content {
+  position: relative;
+  padding: 16px;
+}
+
+.achievement-notification__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.achievement-notification__badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #ffd700;
+  background: rgba(255, 215, 0, 0.15);
+  padding: 4px 10px;
+  border-radius: 20px;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    background: rgba(255, 215, 0, 0.15);
+  }
+  50% {
+    background: rgba(255, 215, 0, 0.25);
+  }
+}
+
+.achievement-notification__close {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+  transition: color 0.2s;
+  border-radius: 4px;
+}
+
+.achievement-notification__close:hover {
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.achievement-notification__body {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.achievement-notification__icon {
+  position: relative;
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+  animation: iconPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+}
+
+@keyframes iconPop {
+  from {
+    transform: scale(0) rotate(-10deg);
+  }
+  to {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.achievement-notification__emoji {
+  font-size: 1.75rem;
+}
+
+.achievement-notification__category-icon {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  font-size: 0.875rem;
+  background: #1a1a2e;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.achievement-notification__details {
+  flex: 1;
+  min-width: 0;
+}
+
+.achievement-notification__title {
+  margin: 0 0 4px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  animation: fadeIn 0.4s ease-out 0.3s both;
+}
+
+.achievement-notification__description {
+  margin: 0 0 8px 0;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.4;
+  animation: fadeIn 0.4s ease-out 0.4s both;
+}
+
+.achievement-notification__points {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #4ade80;
+  animation: fadeIn 0.4s ease-out 0.5s both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.achievement-notification__progress-bar {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.achievement-notification__progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffd700, #ff8c00);
+  animation: progressShrink linear forwards;
+  transform-origin: left;
+}
+
+@keyframes progressShrink {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+  .achievement-notification {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    min-width: auto;
+    max-width: none;
+  }
+}

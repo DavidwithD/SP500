@@ -1,29 +1,36 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from '../components/common';
 import { Layout, Header, Footer } from '../components/layout';
+import { getLeaderboard, getLeaderboardStats } from '../services/leaderboard';
+import type { LeaderboardPeriod, LeaderboardSortBy } from '../types/leaderboard.types';
 import './LeaderboardPage.css';
 
-interface LeaderboardEntry {
-  rank: number;
-  username: string;
-  roi: number;
-  profit: number;
-  trades: number;
-  gameName: string;
-  endDate: string;
-}
-
-// Placeholder data for the leaderboard
-const PLACEHOLDER_DATA: LeaderboardEntry[] = [
-  { rank: 1, username: 'TraderPro', roi: 156.2, profit: 15620, trades: 45, gameName: 'Bull Run 2020', endDate: '2021-12-31' },
-  { rank: 2, username: 'WallStreetWiz', roi: 132.8, profit: 13280, trades: 38, gameName: 'Recovery Play', endDate: '2021-06-15' },
-  { rank: 3, username: 'IndexFundFan', roi: 98.5, profit: 9850, trades: 12, gameName: 'Long Game', endDate: '2022-03-20' },
-  { rank: 4, username: 'SwingMaster', roi: 87.3, profit: 8730, trades: 67, gameName: 'Quick Trades', endDate: '2021-09-30' },
-  { rank: 5, username: 'PatientInvestor', roi: 76.4, profit: 7640, trades: 8, gameName: 'Buy & Hold', endDate: '2022-01-15' },
-];
-
 export const LeaderboardPage: React.FC = () => {
+  const [period, setPeriod] = useState<LeaderboardPeriod>('all-time');
+  const [sortBy, setSortBy] = useState<LeaderboardSortBy>('roi');
+
+  const entries = useMemo(() => getLeaderboard({ period, sortBy, limit: 50 }), [period, sortBy]);
+  const stats = useMemo(() => getLeaderboardStats(), []);
+
+  const formatDate = (date: Date) => {
+    return new Date(date).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
+  };
+
+  const formatROI = (roi: number) => {
+    const sign = roi >= 0 ? '+' : '';
+    return `${sign}${roi.toFixed(1)}%`;
+  };
+
+  const formatProfit = (profit: number) => {
+    const sign = profit >= 0 ? '+' : '';
+    return `${sign}$${Math.abs(profit).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+  };
+
   return (
     <Layout
       header={<Header />}
@@ -34,68 +41,110 @@ export const LeaderboardPage: React.FC = () => {
         <div className="leaderboard-header">
           <h1>🏆 Leaderboard</h1>
           <p className="leaderboard-subtitle">
-            Top performers ranked by Return on Investment (ROI)
+            Top performers ranked by {sortBy === 'roi' ? 'Return on Investment (ROI)' : sortBy === 'profit' ? 'Total Profit' : 'Trade Count'}
           </p>
         </div>
 
-        <div className="leaderboard-filters">
-          <button className="filter-btn active">All Time</button>
-          <button className="filter-btn">This Month</button>
-          <button className="filter-btn">This Week</button>
+        {stats.totalEntries > 0 && (
+          <div className="leaderboard-stats">
+            <div className="stat-item">
+              <span className="stat-value">{stats.totalEntries}</span>
+              <span className="stat-label">Games Played</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-value">{formatROI(stats.highestROI)}</span>
+              <span className="stat-label">Best ROI</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-value">{formatROI(stats.averageROI)}</span>
+              <span className="stat-label">Avg ROI</span>
+            </div>
+          </div>
+        )}
+
+        <div className="leaderboard-controls">
+          <div className="leaderboard-filters">
+            <button 
+              className={`filter-btn ${period === 'all-time' ? 'active' : ''}`}
+              onClick={() => setPeriod('all-time')}
+            >
+              All Time
+            </button>
+            <button 
+              className={`filter-btn ${period === 'this-month' ? 'active' : ''}`}
+              onClick={() => setPeriod('this-month')}
+            >
+              This Month
+            </button>
+            <button 
+              className={`filter-btn ${period === 'this-week' ? 'active' : ''}`}
+              onClick={() => setPeriod('this-week')}
+            >
+              This Week
+            </button>
+          </div>
+
+          <div className="leaderboard-sort">
+            <label>Sort by:</label>
+            <select value={sortBy} onChange={(e) => setSortBy(e.target.value as LeaderboardSortBy)}>
+              <option value="roi">ROI</option>
+              <option value="profit">Profit</option>
+              <option value="trades">Trades</option>
+            </select>
+          </div>
         </div>
 
         <Card className="leaderboard-card" padding="none">
-          <div className="leaderboard-notice">
-            <span className="notice-icon">🚧</span>
-            <div className="notice-content">
-              <strong>Coming Soon!</strong>
-              <p>
-                The leaderboard feature is under development. Complete games to see your scores here!
-                For now, here's a preview of how it will look.
-              </p>
+          {entries.length === 0 ? (
+            <div className="leaderboard-empty">
+              <span className="empty-icon">📊</span>
+              <h3>No entries yet</h3>
+              <p>Complete games to appear on the leaderboard!</p>
             </div>
-          </div>
-
-          <table className="leaderboard-table">
-            <thead>
-              <tr>
-                <th className="col-rank">Rank</th>
-                <th className="col-user">Player</th>
-                <th className="col-game">Game</th>
-                <th className="col-roi">ROI</th>
-                <th className="col-profit">Profit</th>
-                <th className="col-trades">Trades</th>
-              </tr>
-            </thead>
-            <tbody>
-              {PLACEHOLDER_DATA.map((entry) => (
-                <tr key={entry.rank} className={entry.rank <= 3 ? `top-${entry.rank}` : ''}>
-                  <td className="col-rank">
-                    {entry.rank === 1 && <span className="rank-medal">🥇</span>}
-                    {entry.rank === 2 && <span className="rank-medal">🥈</span>}
-                    {entry.rank === 3 && <span className="rank-medal">🥉</span>}
-                    {entry.rank > 3 && <span className="rank-number">{entry.rank}</span>}
-                  </td>
-                  <td className="col-user">
-                    <span className="username">{entry.username}</span>
-                  </td>
-                  <td className="col-game">
-                    <span className="game-name">{entry.gameName}</span>
-                    <span className="game-date">{entry.endDate}</span>
-                  </td>
-                  <td className="col-roi">
-                    <span className="roi-value positive">+{entry.roi.toFixed(1)}%</span>
-                  </td>
-                  <td className="col-profit">
-                    <span className="profit-value positive">
-                      ${entry.profit.toLocaleString()}
-                    </span>
-                  </td>
-                  <td className="col-trades">{entry.trades}</td>
+          ) : (
+            <table className="leaderboard-table">
+              <thead>
+                <tr>
+                  <th className="col-rank">Rank</th>
+                  <th className="col-user">Player</th>
+                  <th className="col-game">Game</th>
+                  <th className="col-roi">ROI</th>
+                  <th className="col-profit">Profit</th>
+                  <th className="col-trades">Trades</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {entries.map((entry) => (
+                  <tr key={entry.id} className={entry.rank <= 3 ? `top-${entry.rank}` : ''}>
+                    <td className="col-rank">
+                      {entry.rank === 1 && <span className="rank-medal">🥇</span>}
+                      {entry.rank === 2 && <span className="rank-medal">🥈</span>}
+                      {entry.rank === 3 && <span className="rank-medal">🥉</span>}
+                      {entry.rank > 3 && <span className="rank-number">{entry.rank}</span>}
+                    </td>
+                    <td className="col-user">
+                      <span className="username">{entry.username}</span>
+                    </td>
+                    <td className="col-game">
+                      <span className="game-name">{entry.gameName}</span>
+                      <span className="game-date">{formatDate(entry.endDate)}</span>
+                    </td>
+                    <td className="col-roi">
+                      <span className={`roi-value ${entry.roi >= 0 ? 'positive' : 'negative'}`}>
+                        {formatROI(entry.roi)}
+                      </span>
+                    </td>
+                    <td className="col-profit">
+                      <span className={`profit-value ${entry.profit >= 0 ? 'positive' : 'negative'}`}>
+                        {formatProfit(entry.profit)}
+                      </span>
+                    </td>
+                    <td className="col-trades">{entry.trades}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </Card>
 
         <div className="leaderboard-cta">
